@@ -1,0 +1,43 @@
+doctype
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="handheldfriendly", content="true")
+    meta(name="mobileoptimized", content="320")
+    if current.path == '404' 
+      title #{site_name} | Page Not Found 
+      meta(name="title", content="#{site_name} | Page Not Found")
+      meta(name="robots", content="noindex")
+    else
+      title #{site_name}  
+      meta(name="title", content="#{site_name}")
+      meta(name="description", content="#{site_description}")
+      meta(property="og:title", content="#{site_name}") 
+      meta(property="og:description", content="#{site_description}")
+      meta(property="og:type", content="website")
+      meta(property="og:url", content="#{site_url}")   
+      meta(property="og:image", content="#{site_url}/img/og_image.gif")
+      meta(property="og:site_name", content="#{site_name}")
+      
+    link(rel="shortcut icon", href="/img/favicon.ico")
+    link(rel="apple-touch-icon", href="/img/apple-touch-icon.png")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700|Poppins:400,600" ) 
+    link(rel="stylesheet", href="/css/style.min.css")
+      
+  body
+    main(role="main" style="background:url(#{site_bg_url}) 50% 50% fixed no-repeat;background-size:cover;")
+      if current.path == 'index' 
+        != partial("_partials/intro")
+        != partial("_partials/aboutme")
+      else
+        != yield
+      
+    if current.path == 'index'
+      != partial("_partials/aside")
+
+      if analytics
+        != partial("_partials/analytics")
+
+      script var moreBtn = document.querySelector(".more-btn"), closeBtn = document.querySelector(".close-btn"), root = document.getElementsByTagName("html")[0]; moreBtn.addEventListener("click", function(e){e.preventDefault(); root.classList.add("active"); }); closeBtn.addEventListener("click", function(){root.classList.remove("active"); });
